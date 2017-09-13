@@ -14,7 +14,7 @@ There are very few commands in dotfiler: `update`, `add` and `status`:
   If you want to see what will it do without but afraid to loose some files, just fire
   `dotfiler update --dry --verbose`.
 * `add` allows you to clone one or more repositories with configs. For example, this
-  will clone my emacs's configs: `dot add svetlyak40wt/dot-emacs'. Of cause you could
+  will clone my emacs's configs: `dotfiler add svetlyak40wt/dot-emacs'. Of cause you could
   use full url, like that: <https://github.com/svetlyak40wt/dot-emacs> or
   <git@github.com:svetlyak40wt/dot-emacs.git>.
 * `status` will show you if there are some uncommited changes in the envs, and even
@@ -38,7 +38,7 @@ Suppose, you have a `~/.zshrc` which sources all configs from `~/.zsh/`. And you
 
 In this example, first environment, let's call it `base`, will contain file `base/.zsh/generic`. Second environment, called `atwork`, will have `atwork/.zsh/secret-settings`. Both of them, off cause could include other files, not only zsh configs. And most importantly, these environment now could be stored separately and installed to each machine separately. What does it meean? Right! Now, you could share you generic everyday configs on the GitHub, but keep daily-job's configs in a dry-n-safe-secret-private-repository. 
 
-There is a way to add new environments using `dot add <url> <url>...`. Probably the process of adding environments on a fresh machine will be even more improved, when I introduce a concept of the meta-environments, which will make it possible to make one env depends on few another and to pull them during `dot add` procedure.
+There is a way to add new environments using `dotfiler add <url> <url>...`. Probably the process of adding environments on a fresh machine will be even more improved, when I introduce a concept of the meta-environments, which will make it possible to make one env depends on few another and to pull them during `dotfiler add` procedure.
 
 Get involved
 ------------
