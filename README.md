@@ -12,7 +12,7 @@ There are very few commands in dotfiler: `update`, `add` and `status`:
   the `~/.dotfiles` dir, where different configs and scripts could be placed. After that,
   `update` will make all that mumbo-jumbo, symlinking and removing old broken symlinks.
   If you want to see what will it do without but afraid to loose some files, just fire
-  `dot update --dry --verbose`.
+  `dotfiler update --dry --verbose`.
 * `add` allows you to clone one or more repositories with configs. For example, this
   will clone my emacs's configs: `dot add svetlyak40wt/dot-emacs'. Of cause you could
   use full url, like that: <https://github.com/svetlyak40wt/dot-emacs> or
@@ -26,13 +26,13 @@ Installation
 1. Clone this project somewhere like `$HOME/.dotfiles` and add `$HOME/.dotfiles/bin` into
 your `PATH`.
 2. Then clone some config files into the `$HOME/.dotfiles` .
-3. Run `dot update` to make all necessary symlinks.
+3. Run `dotfiler update` to make all necessary symlinks.
 4. Have a profit!
 
 How does it work
 ----------------
 
-From user's point of view — very simple. You just create a separate subdirectories, called "environments", put configs there and run `dot update`. Dotfiler will make all necessary symlinks automagickally. **What makes dotfiler better, than other solutions?** It's ability to merge files from different environments into one target dir. I'll give you example for a better understanding. 
+From user's point of view — very simple. You just create a separate subdirectories, called "environments", put configs there and run `dotfiler update`. Dotfiler will make all necessary symlinks automagickally. **What makes dotfiler better, than other solutions?** It's ability to merge files from different environments into one target dir. I'll give you example for a better understanding. 
 
 Suppose, you have a `~/.zshrc` which sources all configs from `~/.zsh/`. And you want to separate every-day configs from the configs only needed on machines at your daily-job. In most config managers you will end upwith two separate repositories sharing part of zsh config. But dotfiler allows you to make a much clever thing — to separate zsh (actually any other configs too, if they may understand `include` instruction) into the different environments.
 
@@ -52,11 +52,11 @@ More technical details
 
 If you are wondering, how does dotfiler work inside, I'll tell you. 
 
-First of all, it walks through all files and all environments collecting all dirs, mentioned in more than one environment and files. If file with same filename exits in few environments, this is an error and `dot` will tell you they are conflicting. 
+First of all, it walks through all files and all environments collecting all dirs, mentioned in more than one environment and files. If file with same filename exits in few environments, this is an error and `dotfiler` will tell you they are conflicting. 
 
 Having this dirs/files tree, it generates pairs source — target, where source is a file inside the environment dir and target is where it should be in your home dir. 
 
-After this data is ready, `dot` generates one or more actions for each pair. Actions could be `rm`, `mkdir`, `link`, `already-linked` and `error`. Which action will be generated, depends on the current file system's state and previously generated actions. Here is a simple example:
+After this data is ready, `dotfiler` generates one or more actions for each pair. Actions could be `rm`, `mkdir`, `link`, `already-linked` and `error`. Which action will be generated, depends on the current file system's state and previously generated actions. Here is a simple example:
 
 This is a structure of the `~/.dotfiles` with two separate enviroments `zsh` and `emacs`:
 
@@ -111,10 +111,10 @@ This is a structure of the `~/.dotfiles` with two separate enviroments `zsh` and
     └── .zshrc
 ```
 
-And here is result of `dot update`:
+And here is result of `dotfiler update`:
 
 ```
-[art@art-osx:~/.dotfiles]% dot update
+[art@art-osx:~/.dotfiles]% dotfiler update
 LINK    Symlink from /home/art/.bash_profile to /home/art/.dotfiles/zsh/.bash_profile was created
 LINK    Symlink from /home/art/.emacs.d to /home/art/.dotfiles/emacs/.emacs.d was created
 LINK    Symlink from /home/art/.zsh to /home/art/.dotfiles/zsh/.zsh was created
@@ -151,7 +151,7 @@ In this case, we have two environments and both of them have configs for zsh. Fo
 dotfiler will try to create a directory `~/.zsh` and will make symlinks there:
 
 ```
-[art@art-osx:~/.dotfiles]% dot update
+[art@art-osx:~/.dotfiles]% dotfiler update
 LINK    Symlink from /home/art/.bash_profile to /home/art/.dotfiles/zsh/.bash_profile was created
 LINK    Symlink from /home/art/.gitconfig to /home/art/.dotfiles/git/.gitconfig was created
 MKDIR   Directory /home/art/.zsh was created.
